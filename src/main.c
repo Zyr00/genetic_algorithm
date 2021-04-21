@@ -6,7 +6,7 @@
 
 void monkey(void);
 void knapsack(void);
-void run_ex(char *,void (*f)(void));
+void run_ex(const char *const, void (*f)(void));
 
 /**
  * @brief the main method
@@ -22,10 +22,10 @@ int main(void) {
 
 /**
  * @brief function to has a y or n question
- * @param *val a string ex: ex1 -> Run ex1 [y/N]:
- * @param *f a function to run (no params)
+ * @param val a string
+ * @param f a function to run (no params)
  */
-void run_ex(char *val, void (*f)(void)) {
+void run_ex(const char *const val, void (*f)(void)) {
   char res;
   read_char(&res, val);
   if (res == 'y' || res == 'Y')

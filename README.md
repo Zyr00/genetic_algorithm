@@ -46,3 +46,16 @@ EXEC := main
 
 - Windows Instruction [here](https://stackoverflow.com/questions/32127524/how-to-install-and-use-make-in-windows#54086635)
 - Mac Instruction [here](https://stackoverflow.com/questions/1469994/using-make-on-os-x)
+
+## References
+
+### Article
+ - [Introduction to Genetic Algorithms — Including Example Code](https://towardsdatascience.com/introduction-to-genetic-algorithms-including-example-code-e396e98d8bf3)
+
+### Youtube
+ - [Genetic Algorithms Explained By Example](https://www.youtube.com/watch?v=uQj5UNhCPuo)
+ - [Genetic Algorithm from Scratch in Python (tutorial with code)](https://www.youtube.com/watch?v=nhT56blfRpE)
+
+### Code
+ - [Memento Gitalb](https://github.com/memento/GeneticAlgorithm)
+ - [Kie Codes](https://github.com/kiecodes/genetic-algorithms)
