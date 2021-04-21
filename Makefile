@@ -1,0 +1,25 @@
+CC = gcc
+CFLAGS := -g -Wall -Wextra -pedantic
+
+OBJDIR = obj
+SRCDIR = src
+
+EXEC := main
+HDRS := $(shell find $(SRCDIR) -name "*.h")
+SRCS := $(shell find $(SRCDIR) -name "*.c")
+OBJS := $(SRCS:%.c=$(OBJDIR)/%.o)
+
+all: $(EXEC)
+
+$(OBJDIR)/%.o: %.c
+	@echo "COMPILING SOURCE $< INTO OBJECT $@"
+	@mkdir -p '$(@D)'
+	@$(CC) -c $(CFLAGS) $< -o $@
+
+$(EXEC): $(OBJS) $(HDRS)
+	$(CC) -o $@ $(OBJS) $(CFLAGS)
+
+clean:
+	rm -rf $(EXEC) $(OBJDIR)
+
+.PHONY: all clean
