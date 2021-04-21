@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "monkey.h"
 #include "utils.h"
+#include "monkey.h"
+#include "knapsack.h"
 
 void monkey(void);
 void knapsack(void);
@@ -16,7 +17,7 @@ int main(void) {
   srand((unsigned) time(&t));
 
   run_ex("Run ex1 [y/N]: ", monkey);
-  //run_ex("ex2", knapsack);
+  run_ex("Run ex2 [y/N]: ", knapsack);
   return 0;
 }
 
@@ -98,6 +99,23 @@ void monkey(void) {
  * @brief the genetic algorithm for the knapsack problem
  */
 void knapsack(void) {
-  int generation = 0;
-  float fitness = 0;
+  size_t pop_size = KNAPSACK_DEFAULT_POP_SIZE;
+  size_t gen_size = KNAPSACK_DEFAULT_GEN_SIZE;
+  float mutation_value = KNAPSACK_DEFAULT_MUTATION;
+
+  // int generation = 0;
+  // float fitness = 0;
+
+  population *pop = generate_population(pop_size, gen_size, knapsack_random_genome);
+  // fitness = calc_fitness(pop, pop_size, gen_size, calc_knapsack_fitness);
+
+  size_t i, j;
+  for (i = 0; i < pop_size; i++) {
+    printf("\nExpecimen: %lu\n", i);
+    for (j = 0; j < gen_size; j++) {
+      printf("(%2lu) -> ", j);
+      printf("Value: %3f\t", ((item *) pop[i].genes)[j].value);
+      printf("Weight: %3f\n", ((item *) pop[i].genes)[j].weight);
+    }
+  }
 }

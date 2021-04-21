@@ -1,6 +1,4 @@
 #include "monkey.h"
-#include <stdio.h>
-#include <string.h>
 
 #define ASCI_START 32
 #define ASCI_END 127
@@ -40,7 +38,7 @@ void *monkey_random_genome(const size_t length) {
 /**
  * @brief calculate the fitness of the genome of the monkey problem
  * @param pop the population
- * @param size the size of the population
+ * @param size the size of the genome
  * @return the new fitness
  */
 float calc_monkey_fitness(const population pop, const size_t size) {

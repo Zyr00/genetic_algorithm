@@ -6,7 +6,7 @@
 #include "genetic.h"
 
 #define MONKEY_DEFAULT_SOLUTION "IA e a melhor UC do curso."
-#define MONKEY_DEFAULT_POP_SIZE 48
+#define MONKEY_DEFAULT_POP_SIZE 50
 #define MONKEY_DEFAULT_GEN_SIZE strlen(MONKEY_DEFAULT_SOLUTION)
 #define MONKEY_DEFAULT_MUTATION 0.01
 
