@@ -1,5 +1,4 @@
-#include "genetic.h"
-#include <stdio.h>
+#include "../includes/genetic.h"
 
 /**
  * @breif function to generate a population

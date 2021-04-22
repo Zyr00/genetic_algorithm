@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "utils.h"
-#include "monkey.h"
-#include "knapsack.h"
+#include "../includes/utils.h"
+#include "../includes/monkey.h"
+#include "../includes/knapsack.h"
 
 void monkey_fun(void);
 void knapsack_fun(void);
@@ -16,8 +16,8 @@ int main(void) {
   time_t t;
   srand((unsigned) time(&t));
 
-  run_ex("Run ex1 [y/N]: ", monkey_fun);
-  run_ex("Run ex2 [y/N]: ", knapsack_fun);
+  run_ex("Run monkey problem [y/N]: ", monkey_fun);
+  run_ex("\n\nRun knapsack problem [y/N]: ", knapsack_fun);
   return 0;
 }
 
@@ -108,7 +108,7 @@ void knapsack_fun(void) {
     read_size_t(&pop_size, "Enter population size: ");
     read_size_t(&gen_size, "Enter genome size: ");
     read_float(&mutation_value, "Enter mutation: ");
-    read_unsigned_short(&knapsack_weight, "Enter mutation: ");
+    read_unsigned_short(&knapsack_weight, "Knapsack weight: ");
     read_unsigned_short(&item_max_value, "Enter max value of item: ");
     read_unsigned_short(&item_max_weight, "Enter max weight of item: ");
   } else {

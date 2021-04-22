@@ -1,5 +1,5 @@
-#include "monkey.h"
-#include "utils.h"
+#include "../includes/monkey.h"
+#include "../includes/utils.h"
 
 char *monkey_solution;
 

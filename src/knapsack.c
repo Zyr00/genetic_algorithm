@@ -1,5 +1,5 @@
-#include "knapsack.h"
-#include "utils.h"
+#include "../includes/knapsack.h"
+#include "../includes/utils.h"
 
 short unsigned int knapsack_weight;
 short unsigned int item_max_weight;

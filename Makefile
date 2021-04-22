@@ -3,9 +3,10 @@ CFLAGS := -g -Wall -Wextra -pedantic
 
 OBJDIR = obj
 SRCDIR = src
+INCDIR = includes
 
 EXEC := main
-HDRS := $(shell find $(SRCDIR) -name "*.h")
+HDRS := $(shell find $(INCDIR) -name "*.h")
 SRCS := $(shell find $(SRCDIR) -name "*.c")
 OBJS := $(SRCS:%.c=$(OBJDIR)/%.o)
 
