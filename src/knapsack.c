@@ -75,8 +75,52 @@ float calc_knapsack_fitness(const population pop, const size_t size) {
   return value;
 }
 
-void knapsack_crossover(population *const first, population *const second, const int crossover_point) {}
-void knapsack_mutation(population *const first, population *const second, const int mutation_point_1, const int mutation_point_2) {}
+/**
+ * @brief the crossover function of the knapsack problem
+ * @param first the pointer of the fittest expecimen
+ * @param second the pointer of the second fittest expecimen
+ * @param crossover_point the point to crossover
+ */
+void knapsack_crossover(population *const first, population *const second, const int crossover_point) {
+  int i;
+  short int tmp;
+  knapsack *first_knap = ((knapsack *) first->genes);
+  knapsack *second_knap = ((knapsack *) second->genes);
+
+  for (i = 0; i < crossover_point; i++) {
+    tmp = first_knap->inside[i];
+    first_knap->inside[i] = second_knap->inside[i];
+    second_knap->inside[i] = tmp;
+  }
+
+  first->genes = first_knap;
+  second->genes = second_knap;
+}
+
+/**
+ * @brief the mutation function to mutate the genome
+ * @param first a pointer of the fittest expecimen
+ * @param second a pointer of the second fittest expecimen
+ * @param mutation_point_1 a random position in the array to mutate for the fittest
+ * @param mutation_point_2 a random position in the array to mutate for the second fittest
+ */
+void knapsack_mutation(population *const first, population *const second, const int mutation_point_1, const int mutation_point_2) {
+  knapsack *first_knap = ((knapsack *) first->genes);
+  knapsack *second_knap = ((knapsack *) second->genes);
+
+  if (first_knap->inside[mutation_point_1] == 1)
+    first_knap->inside[mutation_point_1] = 0;
+  else
+    first_knap->inside[mutation_point_1] = 1;
+
+  if (second_knap->inside[mutation_point_2] == 1)
+    second_knap->inside[mutation_point_2] = 0;
+  else
+    second_knap->inside[mutation_point_2] = 1;
+
+  first->genes = first_knap;
+  second->genes = second_knap;
+}
 
 /**
  * @brief print a single item

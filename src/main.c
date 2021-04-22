@@ -132,14 +132,10 @@ void knapsack_fun(void) {
     generation++;
 
     selection(pop, pop_size, &first_fittest, &second_fittest);
-    /*
-    TODO: Crossover function
     crossover(&first_fittest, &second_fittest, gen_size, knapsack_crossover);
 
-    TODO: Crossover function
     if (random_float(2) <= mutation_value)
       mutation(&first_fittest, &second_fittest, gen_size, knapsack_mutation);
-    */
 
     fittest_offspring(pop, pop_size, &first_fittest, &second_fittest, gen_size, calc_knapsack_fitness);
     calc_fitness(pop, pop_size, gen_size, calc_knapsack_fitness);
