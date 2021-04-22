@@ -1,12 +1,30 @@
 #include "knapsack.h"
+#include "utils.h"
+
+short unsigned int knapsack_weight;
+short unsigned int item_max_weight;
+short unsigned int item_max_value;
+item *items;
 
 /**
- * @brief create a random float
- *  View: https://stackoverflow.com/questions/13408990/how-to-generate-random-float-number-in-c#13409133
- * @param limit is never bigger than the limit
+ * @brief generate random items with values
+ * @param size the size of the array of items
  */
-float random_float(const float limit) {
-  return ((float) rand() / (float) (RAND_MAX)) * limit;
+item *generate_items(const size_t size) {
+  size_t i;
+  item *items = NULL;
+
+  if (size) {
+    items = malloc(sizeof(item) * size);
+    if (items) {
+      for (i = 0; i < size; i++) {
+        items[i].value = random_float(item_max_value);
+        items[i].weight = random_float(item_max_weight);
+      }
+    }
+  }
+
+  return items;
 }
 
 /**
@@ -16,20 +34,23 @@ float random_float(const float limit) {
  */
 void *knapsack_random_genome(const size_t size) {
   size_t i;
-  item *items;
+  knapsack *knap = NULL;
 
   if (size) {
-    items = malloc(sizeof(item) * size);
+    knap = malloc(sizeof(knapsack));
+    if (knap) {
+      knap->inside = malloc(sizeof(short int) * size);
 
-    if (items) {
-      for (i = 0; i < size; i++) {
-        items[i].value = random_float(8.0);
-        items[i].weight = random_float(6.0);
+      if (items && knap->inside) {
+        for (i = 0; i < size; i++)
+          knap->inside[i] = random_int(2);
+
+        knap->items = items;
       }
     }
   }
 
-  return items;
+  return knap;
 }
 
 /**
@@ -40,16 +61,63 @@ void *knapsack_random_genome(const size_t size) {
  */
 float calc_knapsack_fitness(const population pop, const size_t size) {
   size_t i;
-  float new_fitness = 0;
-  item *genes = (item *) pop.genes;
+  float weight = 0, value = 0;
+  knapsack *knap = (knapsack *) pop.genes;
 
   for (i = 0; i < size; i++) {
-    // TODO: calculate fitness for each item.
-    new_fitness++;
+    if (knap->inside[i] == 1) {
+      value += items[i].value;
+      weight += items[i].weight;
+      if (weight > knapsack_weight) return 0;
+    }
   }
 
-  return new_fitness / size;
+  return value;
 }
 
-void knapsack_crossover(population *const, population *const, const int);
-void knapsack_mutation(population *const, population *const, const int, const int);
+void knapsack_crossover(population *const first, population *const second, const int crossover_point) {}
+void knapsack_mutation(population *const first, population *const second, const int mutation_point_1, const int mutation_point_2) {}
+
+/**
+ * @brief print a single item
+ * @param i the pos of the item
+ * @param value to sum the value of the item
+ * @param weight to sum the weight of the item
+ */
+void print_item(const size_t i, float *const value, float *const weight) {
+  printf("\n%2lu -> Value: %f\tWeight: %f", i + 1, items[i].value, items[i].weight);
+  *value += items[i].value;
+  *weight += items[i].weight;
+}
+
+/**
+ * @brief print all items
+ * @param size the size of the items array
+ * @param knap if the items are in the knapsack
+ */
+void print_items(const size_t size, const knapsack *const knap) {
+  size_t i;
+  float value = 0;
+  float weight = 0;
+
+  for (i = 0; i < size; i++) {
+    if (knap) {
+      if (knap->inside[i] == 1) {
+        print_item(i, &value, &weight);
+      }
+    } else {
+      print_item(i, &value, &weight);
+    }
+  }
+  printf("\n\nTotal Value: %f\nTotal Weight: %f\n", value, weight);
+}
+
+/**
+ * @brief free memory form a population
+ * @param pop the population to free from memory
+ */
+void knapsack_free(population *const pop) {
+  free(((knapsack *) pop->genes)->items);
+  free(((knapsack *) pop->genes)->inside);
+  free(pop);
+}

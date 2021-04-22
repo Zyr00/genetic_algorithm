@@ -1,17 +1,7 @@
 #include "monkey.h"
-
-#define ASCI_START 32
-#define ASCI_END 127
+#include "utils.h"
 
 char *monkey_solution;
-
-/**
- * @brief create a random character from the asci table.
- * @return a random char
- */
-char random_char() {
-  return (char) ((rand() % (ASCI_END - ASCI_START)) + ASCI_START);
-}
 
 /**
  * @brief generate random genome for the monkey problem
@@ -65,7 +55,7 @@ void monkey_crossover(population *const first, population *const second, const i
   char *first_genes = first->genes;
   char *second_genes = second->genes;
 
-  if (strcmp(first_genes, second_genes) == 0) {
+  if (strcmp(first_genes, second_genes) != 0) {
       char tmp;
       for (i = 0; i < crossover_point; i++) {
         tmp = first_genes[i];

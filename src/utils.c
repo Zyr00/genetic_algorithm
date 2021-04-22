@@ -1,6 +1,31 @@
 #include "utils.h"
 
 /**
+ * @brief create a random character from the asci table.
+ * @return a random char
+ */
+char random_char() {
+  return (char) ((rand() % (ASCI_END - ASCI_START)) + ASCI_START);
+}
+
+/**
+ * @brief create a random float
+ *  View: https://stackoverflow.com/questions/13408990/how-to-generate-random-float-number-in-c#13409133
+ * @param limit is never bigger than the limit
+ */
+float random_float(const float limit) {
+    return ((float) rand() / (float) (RAND_MAX)) * limit;
+}
+
+/**
+ * @brief create a random int
+ * @param limit is never bigger than the limit
+ */
+int random_int(const int limit) {
+  return rand() % limit;
+}
+
+/**
  * @brief clean the input buffer
  */
 void clean_input_buffer() {
@@ -38,6 +63,20 @@ void read_size_t(size_t *const value, const char *const message) {
 void read_float(float *const value, const char *const message) {
   show_message(message);
   while (scanf("%f", value) != 1) {
+    printf(INVALID_INPUT);
+    clean_input_buffer();
+  }
+  clean_input_buffer();
+}
+
+/**
+ * @brief read a short from the cli
+ * @param value the pointer to the value
+ * @param message a message to show to de user
+ */
+void read_unsigned_short(short unsigned int *const value, const char *const message) {
+  show_message(message);
+  while (scanf("%hu", value) != 1) {
     printf(INVALID_INPUT);
     clean_input_buffer();
   }
