@@ -3,13 +3,10 @@
 /**
  * @breif function to generate a population
  * @param pop_size the size of the population
- * @param genome_size the size of the genome
- * @param (*f)(size_t) a function that return a void pointer
+ * @param values the values to store in population genes
  * @return a pointer with the new population
  */
-population *generate_population(const size_t pop_size, const size_t genome_size,
-    void *(*f)(const size_t)) {
-
+population *generate_population(const size_t pop_size, void *values) {
   population *pop;
   size_t i;
 
@@ -17,7 +14,7 @@ population *generate_population(const size_t pop_size, const size_t genome_size,
     pop = malloc(sizeof(population) * pop_size);
     if (pop) {
       for (i = 0; i < pop_size; i++) {
-        pop[i].genes = f(genome_size);
+        pop[i].genes = values;
         pop[i].fitness = 0;
       }
     }

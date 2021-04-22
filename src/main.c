@@ -67,7 +67,7 @@ void monkey_fun(void) {
   printf("\nMutaion value   -> %f", mutation_value);
 
   time = clock();
-  pop = generate_population(pop_size, gen_size, monkey_random_genome);
+  pop = generate_population(pop_size, monkey_random_genome(gen_size));
   fitness = calc_fitness(pop, pop_size, gen_size, calc_monkey_fitness);
 
   while (fitness != 1) {
@@ -89,7 +89,7 @@ void monkey_fun(void) {
   printf("\nSolution found in generation %d", generation);
   printf("\n(%3d) -> \"%s\" %.3f", generation, ((char *) first_fittest.genes), first_fittest.fitness);
 
-  free(pop);
+  monkey_free(pop);
 }
 
 /**
@@ -125,7 +125,7 @@ void knapsack_fun(void) {
   items = generate_items(gen_size);
   print_items(gen_size, NULL);
   time = clock();
-  pop = generate_population(pop_size, gen_size, knapsack_random_genome);
+  pop = generate_population(pop_size, knapsack_random_genome(gen_size));
   calc_fitness(pop, pop_size, gen_size, calc_knapsack_fitness);
 
   while (generation < 100) {
@@ -151,3 +151,7 @@ void knapsack_fun(void) {
 
   knapsack_free(pop);
 }
+
+/**
+ * @brief the genetic algorith for the timetable problem
+ */

@@ -14,6 +14,20 @@ The infinite monkey theorem says that a monkey randomly hitting keys on a typewr
 
 Given a set of items, each with a weight and a value, determine the number of each item to include in a collection so that the total weight is less than or equal to a given limit and the total value is as large as possible.
 
+### The timetable problem
+
+This problem consists in a creating a timetable with the following rules:
+  - Classes can only be carried out in rooms that are free in a time frame;
+  - A teacher can only teach a lesson un at a time;
+  - The rooms should be large enough to accomudate a calss.
+To the solution there are a few considerations that you need to have in mind:
+  - You need rooms;
+  - Teachers;
+  - Curricular units;
+  - Class;
+  - Hour Block <2h>;
+  - Lessons composed of (Class, Curricular unit, Teacher, Hour Block, Room).
+
 ## Compiling and running
 
 ### Configuring build

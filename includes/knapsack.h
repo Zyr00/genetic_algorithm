@@ -32,9 +32,8 @@ void *knapsack_random_genome(const size_t);
 float calc_knapsack_fitness(const population, const size_t);
 void knapsack_crossover(population *const, population *const, const int);
 void knapsack_mutation(population *const, population *const, const int, const int);
-
 void print_item(const size_t, float *const, float *const);
 void print_items(const size_t size, const knapsack *const knap);
+void knapsack_free(population *);
 
-void knapsack_free(population *const);
 #endif /* _KNAPSACK_ */

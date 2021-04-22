@@ -160,8 +160,9 @@ void print_items(const size_t size, const knapsack *const knap) {
  * @brief free memory form a population
  * @param pop the population to free from memory
  */
-void knapsack_free(population *const pop) {
-  free(((knapsack *) pop->genes)->items);
+void knapsack_free(population * pop) {
+  free(items);
   free(((knapsack *) pop->genes)->inside);
+  free(pop->genes);
   free(pop);
 }

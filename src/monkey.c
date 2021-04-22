@@ -88,3 +88,12 @@ void monkey_mutation(population *const first, population *const second, const in
   first->genes = first_genes;
   second->genes = second_genes;
 }
+
+/**
+ * @brief free memory from the monkey problem
+ * @param pop the population
+ */
+void monkey_free(population *pop) {
+  free(pop->genes);
+  free(pop);
+}
