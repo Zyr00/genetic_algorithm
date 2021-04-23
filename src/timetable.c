@@ -15,7 +15,7 @@ size_t rooms_length, teachers_length, classes_length;
 void generate_rooms(const size_t size, const short unsigned int min, const short unsigned int max) {
   size_t i;
 
-  if (size < 0) return;
+  if (size <= 0) return;
 
   rooms_length = size;
   rooms = malloc(sizeof(ROOM) * size);
@@ -34,7 +34,7 @@ void generate_rooms(const size_t size, const short unsigned int min, const short
 void generate_teachers(const size_t size) {
   size_t i;
 
-  if (size < 0) return;
+  if (size <= 0) return;
 
   teachers_length = size;
   teachers = malloc(sizeof(TEACHER) * size);
@@ -52,7 +52,7 @@ void generate_teachers(const size_t size) {
 void generate_classes(const size_t size, const short unsigned int min, const short unsigned int max) {
   size_t i;
 
-  if (size < 0) return;
+  if (size <= 0) return;
 
   classes_length = size;
   classes = malloc(sizeof(CLASS) * size);
@@ -73,7 +73,7 @@ void *timetable_random_genome(const size_t gen_size) {
   size_t i;
   LESSON *lessons = NULL;
 
-  if (gen_size < 0) return NULL;
+  if (gen_size <= 0) return NULL;
 
   lessons = malloc(sizeof(LESSON) * gen_size);
   if (lessons == NULL) return NULL;

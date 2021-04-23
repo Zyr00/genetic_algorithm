@@ -13,7 +13,7 @@ ITEM *items;
 void generate_items(const size_t size) {
   size_t i;
 
-  if (size < 0) return;
+  if (size <= 0) return;
 
   items = malloc(sizeof(ITEM) * size);
   if (items == NULL) return;
@@ -34,7 +34,7 @@ void *knapsack_random_genome(const size_t size) {
   KNAPSACK *knap = NULL;
 
   if(items == NULL) return NULL;
-  if (size < 0) return NULL;
+  if (size <= 0) return NULL;
 
   knap = malloc(sizeof(KNAPSACK));
   if (knap == NULL) return NULL;

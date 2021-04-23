@@ -11,14 +11,15 @@ POPULATION *generate_population(const size_t pop_size, void *values) {
   POPULATION *pop;
   size_t i;
 
-  if (pop_size < 0) return NULL;
+  if (pop_size <= 0) return NULL;
 
   pop = malloc(sizeof(POPULATION) * pop_size);
   if (pop == NULL) return NULL;
-      for (i = 0; i < pop_size; i++) {
-        pop[i].genes = values;
-        pop[i].fitness = 0;
-      }
+
+  for (i = 0; i < pop_size; i++) {
+    pop[i].genes = values;
+    pop[i].fitness = 0;
+  }
   return pop;
 }
 

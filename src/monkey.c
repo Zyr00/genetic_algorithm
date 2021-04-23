@@ -12,7 +12,7 @@ void *monkey_random_genome(const size_t size) {
   char *randomString;
   size_t i;
 
-  if (size < 0) return NULL;
+  if (size <= 0) return NULL;
 
   randomString = malloc(sizeof(char) * (size + 1));
   if (randomString == NULL) return NULL;
