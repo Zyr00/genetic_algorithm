@@ -51,6 +51,11 @@ void monkey_fun(void) {
   char res;
   int generation;
 
+  monkey_solution = MONKEY_DEFAULT_SOLUTION;
+  mutation_value = MONKEY_DEFAULT_MUTATION;
+  pop_size = MONKEY_DEFAULT_POP_SIZE;
+  gen_size = MONKEY_DEFAULT_GEN_SIZE;
+
   read_char(&res, "Use default values [Y/n]: ");
   if (res == 'n' || res == 'N') {
     char str[250];
@@ -59,11 +64,6 @@ void monkey_fun(void) {
     read_size_t(&pop_size, "Enter population size: ");
     gen_size = strlen(monkey_solution);
     read_float(&mutation_value, "Enter mutation: ");
-  } else {
-    monkey_solution = MONKEY_DEFAULT_SOLUTION;
-    mutation_value = MONKEY_DEFAULT_MUTATION;
-    pop_size = MONKEY_DEFAULT_POP_SIZE;
-    gen_size = MONKEY_DEFAULT_GEN_SIZE;
   }
 
   printf("\nSolution        -> %s", monkey_solution);
@@ -107,6 +107,13 @@ void knapsack_fun(void) {
   char res;
   int generation;
 
+  mutation_value = KNAPSACK_DEFAULT_MUTATION;
+  pop_size = KNAPSACK_DEFAULT_POP_SIZE;
+  gen_size = KNAPSACK_DEFAULT_GEN_SIZE;
+  knapsack_weight = KNAPSACK_DEFAULT_WEIGHT;
+  item_max_weight = ITEM_MAX_WEIGHT;
+  item_max_value = ITEM_MAX_VALUE;
+
   read_char(&res, "Use default values [Y/n]: ");
   if (res == 'n' || res == 'N') {
     read_size_t(&pop_size, "Enter population size: ");
@@ -115,13 +122,6 @@ void knapsack_fun(void) {
     read_unsigned_short(&knapsack_weight, "Knapsack weight: ");
     read_unsigned_short(&item_max_value, "Enter max value of item: ");
     read_unsigned_short(&item_max_weight, "Enter max weight of item: ");
-  } else {
-    mutation_value = KNAPSACK_DEFAULT_MUTATION;
-    pop_size = KNAPSACK_DEFAULT_POP_SIZE;
-    gen_size = KNAPSACK_DEFAULT_GEN_SIZE;
-    knapsack_weight = KNAPSACK_DEFAULT_WEIGHT;
-    item_max_weight = ITEM_MAX_WEIGHT;
-    item_max_value = ITEM_MAX_VALUE;
   }
 
   generation = 0;
@@ -147,7 +147,8 @@ void knapsack_fun(void) {
   printf("\nIt took %f seconds", ((double) time)/CLOCKS_PER_SEC);
   printf("\nGeneration: (%3d) -> Fitness: %.3f\n", generation, first_fittest.fitness);
   printf("The fittest: \t [");
-  for (i = 0; i < gen_size; i++) printf("%hu", ((KNAPSACK *) first_fittest.genes)->inside[i]);
+  for (i = 0; i < gen_size; i++)
+    printf("%hu", ((KNAPSACK *) first_fittest.genes)->inside[i]);
   printf("]\n");
   print_items(gen_size, ((KNAPSACK *) first_fittest.genes));
 

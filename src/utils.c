@@ -14,7 +14,7 @@ char random_char() {
  * @param limit is never bigger than the limit
  */
 float random_float(const float limit) {
-    return ((float) rand() / (float) (RAND_MAX)) * limit;
+  return ((float) rand() / (float) (RAND_MAX)) * limit;
 }
 
 /**
@@ -51,6 +51,7 @@ void read_size_t(size_t *const value, const char *const message) {
   while (scanf("%lu", value) != 1) {
     printf(INVALID_INPUT);
     clean_input_buffer();
+    show_message(message);
   }
   clean_input_buffer();
 }
@@ -65,6 +66,7 @@ void read_float(float *const value, const char *const message) {
   while (scanf("%f", value) != 1) {
     printf(INVALID_INPUT);
     clean_input_buffer();
+    show_message(message);
   }
   clean_input_buffer();
 }
@@ -79,6 +81,7 @@ void read_unsigned_short(short unsigned int *const value, const char *const mess
   while (scanf("%hu", value) != 1) {
     printf(INVALID_INPUT);
     clean_input_buffer();
+    show_message(message);
   }
   clean_input_buffer();
 }

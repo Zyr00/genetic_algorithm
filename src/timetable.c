@@ -14,15 +14,16 @@ size_t rooms_length, teachers_length, classes_length;
  */
 void generate_rooms(const size_t size, const short unsigned int min, const short unsigned int max) {
   size_t i;
-  if (size) {
-    rooms_length = size;
-    rooms = malloc(sizeof(ROOM) * size);
-    if (rooms) {
-      for (i = 0; i < size; i++) {
-        rooms[i].id = i + 1;
-        rooms[i].size = min + random_int(max);
-      }
-    }
+
+  if (size < 0) return;
+
+  rooms_length = size;
+  rooms = malloc(sizeof(ROOM) * size);
+  if (rooms == NULL) return;
+
+  for (i = 0; i < size; i++) {
+    rooms[i].id = i + 1;
+    rooms[i].size = min + random_int(max);
   }
 }
 
@@ -32,13 +33,14 @@ void generate_rooms(const size_t size, const short unsigned int min, const short
  */
 void generate_teachers(const size_t size) {
   size_t i;
-  if (size) {
-    teachers_length = size;
-    teachers = malloc(sizeof(TEACHER) * size);
-    if (teachers) {
-      for (i = 0; i < size; i++) teachers[i].id = i + 1;
-    }
-  }
+
+  if (size < 0) return;
+
+  teachers_length = size;
+  teachers = malloc(sizeof(TEACHER) * size);
+  if (teachers == NULL) return;
+
+  for (i = 0; i < size; i++) teachers[i].id = i + 1;
 }
 
 /**
@@ -49,13 +51,16 @@ void generate_teachers(const size_t size) {
  */
 void generate_classes(const size_t size, const short unsigned int min, const short unsigned int max) {
   size_t i;
-  if (size) {
-    classes_length = size;
-    classes = malloc(sizeof(CLASS) * size);
-    for (i = 0; i < size; i++) {
-      classes[i].id = i + 1;
-      classes[i].size_of_class = min + random_int(max);
-    }
+
+  if (size < 0) return;
+
+  classes_length = size;
+  classes = malloc(sizeof(CLASS) * size);
+  if (classes == NULL) return;
+
+  for (i = 0; i < size; i++) {
+    classes[i].id = i + 1;
+    classes[i].size_of_class = min + random_int(max);
   }
 }
 
@@ -68,16 +73,16 @@ void *timetable_random_genome(const size_t gen_size) {
   size_t i;
   LESSON *lessons = NULL;
 
-  if (gen_size) {
-    lessons = malloc(sizeof(LESSON) * gen_size);
-    if (lessons) {
-      for (i = 0; i < gen_size; i++) {
-        lessons[i].room = rooms[random_int(rooms_length)];
-        lessons[i].teacher = teachers[random_int(rooms_length)];
-        lessons[i].class_ = classes[random_int(classes_length)];
-        lessons[i].hours = random_int(TIMETABLE_HOUR_BLOCK_SIZE - TIMETABLE_HOUR_BLOCK_DIFERENCE) + TIMETABLE_HOUR_BLOCK_DIFERENCE;
-      }
-    }
+  if (gen_size < 0) return NULL;
+
+  lessons = malloc(sizeof(LESSON) * gen_size);
+  if (lessons == NULL) return NULL;
+
+  for (i = 0; i < gen_size; i++) {
+    lessons[i].room = rooms[random_int(rooms_length)];
+    lessons[i].teacher = teachers[random_int(rooms_length)];
+    lessons[i].class_ = classes[random_int(classes_length)];
+    lessons[i].hours = random_int(TIMETABLE_HOUR_BLOCK_SIZE - TIMETABLE_HOUR_BLOCK_DIFERENCE) + TIMETABLE_HOUR_BLOCK_DIFERENCE;
   }
 
   return lessons;

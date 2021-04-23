@@ -5,23 +5,22 @@ char *monkey_solution;
 
 /**
  * @brief generate random genome for the monkey problem
- * @param length the length of the string for the monkey problem
+ * @param size the length of the string for the monkey problem
  * @return a void pointer of the string
  */
-void *monkey_random_genome(const size_t length) {
+void *monkey_random_genome(const size_t size) {
   char *randomString;
-  size_t n;
+  size_t i;
 
-  if (length) {
-    randomString = malloc(sizeof(char) * (length + 1));
+  if (size < 0) return NULL;
 
-    if (randomString) {
-      for (n = 0; n < length; n++) {
-        randomString[n] = random_char();
-      }
-      randomString[length] = '\0';
-    }
+  randomString = malloc(sizeof(char) * (size + 1));
+  if (randomString == NULL) return NULL;
+
+  for (i = 0; i < size; i++) {
+    randomString[i] = random_char();
   }
+  randomString[size] = '\0';
   return randomString;
 }
 

@@ -11,15 +11,14 @@ POPULATION *generate_population(const size_t pop_size, void *values) {
   POPULATION *pop;
   size_t i;
 
-  if (pop_size) {
-    pop = malloc(sizeof(POPULATION) * pop_size);
-    if (pop) {
+  if (pop_size < 0) return NULL;
+
+  pop = malloc(sizeof(POPULATION) * pop_size);
+  if (pop == NULL) return NULL;
       for (i = 0; i < pop_size; i++) {
         pop[i].genes = values;
         pop[i].fitness = 0;
       }
-    }
-  }
   return pop;
 }
 
@@ -138,7 +137,7 @@ void fittest_offspring(POPULATION *const pop, const size_t pop_size, POPULATION 
 
   if (first->fitness > second->fitness) {
     pop[smallest_fittnes(pop, pop_size)] = *first;
-  } else {
-    pop[smallest_fittnes(pop, pop_size)] = *second;
+    return;
   }
+  pop[smallest_fittnes(pop, pop_size)] = *second;
 }

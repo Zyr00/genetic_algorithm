@@ -13,14 +13,14 @@ ITEM *items;
 void generate_items(const size_t size) {
   size_t i;
 
-  if (size) {
-    items = malloc(sizeof(ITEM) * size);
-    if (items) {
-      for (i = 0; i < size; i++) {
-        items[i].value = random_float(item_max_value);
-        items[i].weight = random_float(item_max_weight);
-      }
-    }
+  if (size < 0) return;
+
+  items = malloc(sizeof(ITEM) * size);
+  if (items == NULL) return;
+
+  for (i = 0; i < size; i++) {
+    items[i].value = random_float(item_max_value);
+    items[i].weight = random_float(item_max_weight);
   }
 }
 
@@ -33,20 +33,17 @@ void *knapsack_random_genome(const size_t size) {
   size_t i;
   KNAPSACK *knap = NULL;
 
-  if (size) {
-    knap = malloc(sizeof(KNAPSACK));
-    if (knap) {
-      knap->inside = malloc(sizeof(short int) * size);
+  if(items == NULL) return NULL;
+  if (size < 0) return NULL;
 
-      if (items && knap->inside) {
-        for (i = 0; i < size; i++)
-          knap->inside[i] = random_int(2);
+  knap = malloc(sizeof(KNAPSACK));
+  if (knap == NULL) return NULL;
 
-        knap->items = items;
-      }
-    }
-  }
+  knap->inside = malloc(sizeof(short int) * size);
+  if (knap->inside == NULL) return NULL;
 
+  for (i = 0; i < size; i++) knap->inside[i] = random_int(2);
+  knap->items = items;
   return knap;
 }
 
@@ -142,10 +139,8 @@ void print_items(const size_t size, const KNAPSACK *const knap) {
   float weight = 0;
 
   for (i = 0; i < size; i++) {
-    if (knap) {
-      if (knap->inside[i] == 1) {
-        print_item(i, &value, &weight);
-      }
+    if (knap && knap->inside[i] == 1) {
+      print_item(i, &value, &weight);
     } else {
       print_item(i, &value, &weight);
     }
