@@ -90,5 +90,6 @@ void timetable_free(POPULATION *pop) {
   free(rooms);
   free(teachers);
   free(classes);
+  free(pop->genes);
   free(pop);
 }

@@ -181,7 +181,7 @@ void timetable_fun(void) {
 
   // TODO: Finish timetable random genome and the others. also needs to generate the UC
   pop = generate_population(pop_size, timetable_random_genome(gen_size));
-  fitness = calc_fitness(pop, pop_size, gen_size, calc_knapsack_fitness);
+  //fitness = calc_fitness(pop, pop_size, gen_size, calc_knapsack_fitness);
 
   timetable_free(pop);
 }
