@@ -6,14 +6,14 @@
 typedef struct {
   void *genes;
   double fitness;
-} population;
+} POPULATION;
 
-population *generate_population(const size_t, void *);
-float calc_fitness(population *, const size_t, const size_t, float (*c)(const population, const size_t));
-void selection(population *, const size_t, population *, population *);
-void crossover(population *, population *, const size_t, void (*c)(population *, population *, const int));
-void mutation(population *, population *, const size_t, void (*m)(population *, population *, const int, const int));
-size_t smallest_fittnes(population *pop, const size_t size);
-void fittest_offspring(population *, const size_t, population *, population *, const size_t, float (*c)(const population, const size_t));
+POPULATION *generate_population(const size_t, void *);
+float calc_fitness(POPULATION *, const size_t, const size_t, float (*c)(const POPULATION, const size_t));
+void selection(POPULATION *, const size_t, POPULATION *, POPULATION *);
+void crossover(POPULATION *, POPULATION *, const size_t, void (*c)(POPULATION *, POPULATION *, const int));
+void mutation(POPULATION *, POPULATION *, const size_t, const float, void (*m)(POPULATION *, POPULATION *, const int, const int));
+size_t smallest_fittnes(POPULATION *pop, const size_t size);
+void fittest_offspring(POPULATION *, const size_t, POPULATION *, POPULATION *, const size_t, float (*c)(const POPULATION, const size_t));
 
 #endif /* _GENETIC_ */

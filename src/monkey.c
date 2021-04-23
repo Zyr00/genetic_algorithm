@@ -31,7 +31,7 @@ void *monkey_random_genome(const size_t length) {
  * @param size the size of the genome
  * @return the new fitness
  */
-float calc_monkey_fitness(const population pop, const size_t size) {
+float calc_monkey_fitness(const POPULATION pop, const size_t size) {
   size_t i;
   float new_fitness = 0;
   char *genes = (char *) pop.genes;
@@ -50,18 +50,16 @@ float calc_monkey_fitness(const population pop, const size_t size) {
  * @param second the pointer of the second fittest expecimen
  * @param crossover_point the point to crossover
  */
-void monkey_crossover(population *const first, population *const second, const int crossover_point) {
+void monkey_crossover(POPULATION *const first, POPULATION *const second, const int crossover_point) {
   int i;
   char *first_genes = first->genes;
   char *second_genes = second->genes;
 
-  if (strcmp(first_genes, second_genes) != 0) {
-      char tmp;
-      for (i = 0; i < crossover_point; i++) {
-        tmp = first_genes[i];
-        first_genes[i] = second_genes[i];
-        second_genes[i] = tmp;
-      }
+  char tmp;
+  for (i = 0; i < crossover_point; i++) {
+    tmp = first_genes[i];
+    first_genes[i] = second_genes[i];
+    second_genes[i] = tmp;
   }
 
   first->genes = first_genes;
@@ -75,7 +73,7 @@ void monkey_crossover(population *const first, population *const second, const i
  * @param mutation_point_1 a random position in the array to mutate for the fittest
  * @param mutation_point_2 a random position in the array to mutate for the second fittest
  */
-void monkey_mutation(population *const first, population *const second, const int mutation_point_1, const int mutation_point_2) {
+void monkey_mutation(POPULATION *const first, POPULATION *const second, const int mutation_point_1, const int mutation_point_2) {
   char *first_genes = first->genes;
   char *second_genes = second->genes;
 
@@ -93,7 +91,7 @@ void monkey_mutation(population *const first, population *const second, const in
  * @brief free memory from the monkey problem
  * @param pop the population
  */
-void monkey_free(population *pop) {
+void monkey_free(POPULATION *pop) {
   free(pop->genes);
   free(pop);
 }

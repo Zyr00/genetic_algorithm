@@ -15,25 +15,25 @@
 typedef struct {
   float weight;
   float value;
-} item;
+} ITEM;
 
 typedef struct {
-  item *items;
+  ITEM *items;
   short int *inside;
-} knapsack;
+} KNAPSACK;
 
 extern short unsigned int knapsack_weight;
 extern short unsigned int item_max_weight;
 extern short unsigned int item_max_value;
-extern item *items;
+extern ITEM *items;
 
-item *generate_items(const size_t);
+void generate_items(const size_t);
 void *knapsack_random_genome(const size_t);
-float calc_knapsack_fitness(const population, const size_t);
-void knapsack_crossover(population *const, population *const, const int);
-void knapsack_mutation(population *const, population *const, const int, const int);
+float calc_knapsack_fitness(const POPULATION, const size_t);
+void knapsack_crossover(POPULATION *const, POPULATION *const, const int);
+void knapsack_mutation(POPULATION *const, POPULATION *const, const int, const int);
 void print_item(const size_t, float *const, float *const);
-void print_items(const size_t size, const knapsack *const knap);
-void knapsack_free(population *);
+void print_items(const size_t size, const KNAPSACK *const knap);
+void knapsack_free(POPULATION *);
 
 #endif /* _KNAPSACK_ */

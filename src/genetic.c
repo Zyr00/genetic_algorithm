@@ -1,4 +1,5 @@
 #include "../includes/genetic.h"
+#include "../includes/utils.h"
 
 /**
  * @breif function to generate a population
@@ -6,12 +7,12 @@
  * @param values the values to store in population genes
  * @return a pointer with the new population
  */
-population *generate_population(const size_t pop_size, void *values) {
-  population *pop;
+POPULATION *generate_population(const size_t pop_size, void *values) {
+  POPULATION *pop;
   size_t i;
 
   if (pop_size) {
-    pop = malloc(sizeof(population) * pop_size);
+    pop = malloc(sizeof(POPULATION) * pop_size);
     if (pop) {
       for (i = 0; i < pop_size; i++) {
         pop[i].genes = values;
@@ -30,8 +31,8 @@ population *generate_population(const size_t pop_size, void *values) {
  * @param (*c)(population, size_t) a function that return the fitness
  * @return the biggest fitness
  */
-float calc_fitness(population *const pop, const size_t pop_size, const size_t genome_size,
-    float (*c)(const population, const size_t)) {
+float calc_fitness(POPULATION *const pop, const size_t pop_size, const size_t genome_size,
+    float (*c)(const POPULATION, const size_t)) {
 
   size_t i;
   float prev = 0, fitness = 0;
@@ -51,7 +52,7 @@ float calc_fitness(population *const pop, const size_t pop_size, const size_t ge
  * @param fittest a pointer for the fittest expecimen
  * @param second_fittest a pointer for the second fittest expecimen
  */
-void selection(population *const pop, const size_t size, population *fittest, population *second_fittest) {
+void selection(POPULATION *const pop, const size_t size, POPULATION *fittest, POPULATION *second_fittest) {
   size_t maxIndex = 0, maxFit1 = 0, maxFit2 = 0, i;
   float max = 0;
 
@@ -81,8 +82,8 @@ void selection(population *const pop, const size_t size, population *fittest, po
  * @param size the size of the genome
  * @param (*c)(population *, population *, int) the function that does the crossover
  */
-void crossover(population *first_fittest, population *second_fittest, const size_t size,
-    void (*c)(population *, population *, const int)) {
+void crossover(POPULATION *first_fittest, POPULATION *second_fittest, const size_t size,
+    void (*c)(POPULATION *, POPULATION *, const int)) {
   c(first_fittest, second_fittest, rand() % size);
 }
 
@@ -91,11 +92,13 @@ void crossover(population *first_fittest, population *second_fittest, const size
  * @param first a pointer to the fittest expecimen
  * @param second a pointer to the second expecimen
  * @param size the size of the genome
+ * @param mutation_value the frequency of the mutation
  * @param (*c)(population *, population *, int, int) the function that does the mutation
  */
-void mutation(population *first, population *second, const size_t size,
-    void (*m)(population *, population *, const int, const int)) {
-  m(first, second, rand() % size, rand() % size);
+void mutation(POPULATION *first, POPULATION *second, const size_t size, const float mutation_value,
+    void (*m)(POPULATION *, POPULATION *, const int, const int)) {
+  if (random_float(2) <= mutation_value)
+    m(first, second, rand() % size, rand() % size);
 }
 
 /**
@@ -104,7 +107,7 @@ void mutation(population *first, population *second, const size_t size,
  * @param size the size of the population
  * @return the index of the smallest fittnes
  */
-size_t smallest_fittnes(population *const pop, const size_t size) {
+size_t smallest_fittnes(POPULATION *const pop, const size_t size) {
   size_t i, index = 0;
   float fitness = 1;
 
@@ -120,15 +123,15 @@ size_t smallest_fittnes(population *const pop, const size_t size) {
 
 /**
  * @brief get the offspring bassed on the fittness
- * @param pop a pointer of the population
- * @param pop_size the size of the population
+ * @param pop a pointer of the POPULATION
+ * @param pop_size the size of the POPULATION
  * @param first a pointer to the fittest expecimen
  * @param second a pointer to the second expecimen
  * @param genome_size the size of the genome
- * @param (*c)(population, size_t) the function to calculat the fitness of a expecimen
+ * @param (*c)(POPULATION, size_t) the function to calculat the fitness of a expecimen
  */
-void fittest_offspring(population *const pop, const size_t pop_size, population *first, population *second,
-    const size_t genome_size, float (*c)(const population, const size_t)) {
+void fittest_offspring(POPULATION *const pop, const size_t pop_size, POPULATION *first, POPULATION *second,
+    const size_t genome_size, float (*c)(const POPULATION, const size_t)) {
 
   first->fitness = c(*first, genome_size);
   second->fitness = c(*second, genome_size);

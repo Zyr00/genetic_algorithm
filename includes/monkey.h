@@ -14,9 +14,9 @@ extern char *monkey_solution;
 
 char random_char();
 void *monkey_random_genome(const size_t);
-float calc_monkey_fitness(const population, const size_t);
-void monkey_crossover(population *const, population *const, const int);
-void monkey_mutation(population *const, population *const, const int, const int);
-void monkey_free(population *);
+float calc_monkey_fitness(const POPULATION, const size_t);
+void monkey_crossover(POPULATION *const, POPULATION *const, const int);
+void monkey_mutation(POPULATION *const, POPULATION *const, const int, const int);
+void monkey_free(POPULATION *);
 
 #endif /* _MONKEY_ */

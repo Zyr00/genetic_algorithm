@@ -4,18 +4,17 @@
 short unsigned int knapsack_weight;
 short unsigned int item_max_weight;
 short unsigned int item_max_value;
-item *items;
+ITEM *items;
 
 /**
  * @brief generate random items with values
  * @param size the size of the array of items
  */
-item *generate_items(const size_t size) {
+void generate_items(const size_t size) {
   size_t i;
-  item *items = NULL;
 
   if (size) {
-    items = malloc(sizeof(item) * size);
+    items = malloc(sizeof(ITEM) * size);
     if (items) {
       for (i = 0; i < size; i++) {
         items[i].value = random_float(item_max_value);
@@ -23,8 +22,6 @@ item *generate_items(const size_t size) {
       }
     }
   }
-
-  return items;
 }
 
 /**
@@ -34,10 +31,10 @@ item *generate_items(const size_t size) {
  */
 void *knapsack_random_genome(const size_t size) {
   size_t i;
-  knapsack *knap = NULL;
+  KNAPSACK *knap = NULL;
 
   if (size) {
-    knap = malloc(sizeof(knapsack));
+    knap = malloc(sizeof(KNAPSACK));
     if (knap) {
       knap->inside = malloc(sizeof(short int) * size);
 
@@ -59,10 +56,10 @@ void *knapsack_random_genome(const size_t size) {
  * @param size the size of the genome
  * @return the new fitness
  */
-float calc_knapsack_fitness(const population pop, const size_t size) {
+float calc_knapsack_fitness(const POPULATION pop, const size_t size) {
   size_t i;
   float weight = 0, value = 0;
-  knapsack *knap = (knapsack *) pop.genes;
+  KNAPSACK *knap = (KNAPSACK *) pop.genes;
 
   for (i = 0; i < size; i++) {
     if (knap->inside[i] == 1) {
@@ -81,11 +78,11 @@ float calc_knapsack_fitness(const population pop, const size_t size) {
  * @param second the pointer of the second fittest expecimen
  * @param crossover_point the point to crossover
  */
-void knapsack_crossover(population *const first, population *const second, const int crossover_point) {
+void knapsack_crossover(POPULATION *const first, POPULATION *const second, const int crossover_point) {
   int i;
   short int tmp;
-  knapsack *first_knap = ((knapsack *) first->genes);
-  knapsack *second_knap = ((knapsack *) second->genes);
+  KNAPSACK *first_knap = ((KNAPSACK *) first->genes);
+  KNAPSACK *second_knap = ((KNAPSACK *) second->genes);
 
   for (i = 0; i < crossover_point; i++) {
     tmp = first_knap->inside[i];
@@ -104,9 +101,9 @@ void knapsack_crossover(population *const first, population *const second, const
  * @param mutation_point_1 a random position in the array to mutate for the fittest
  * @param mutation_point_2 a random position in the array to mutate for the second fittest
  */
-void knapsack_mutation(population *const first, population *const second, const int mutation_point_1, const int mutation_point_2) {
-  knapsack *first_knap = ((knapsack *) first->genes);
-  knapsack *second_knap = ((knapsack *) second->genes);
+void knapsack_mutation(POPULATION *const first, POPULATION *const second, const int mutation_point_1, const int mutation_point_2) {
+  KNAPSACK *first_knap = ((KNAPSACK *) first->genes);
+  KNAPSACK *second_knap = ((KNAPSACK *) second->genes);
 
   if (first_knap->inside[mutation_point_1] == 1)
     first_knap->inside[mutation_point_1] = 0;
@@ -139,7 +136,7 @@ void print_item(const size_t i, float *const value, float *const weight) {
  * @param size the size of the items array
  * @param knap if the items are in the knapsack
  */
-void print_items(const size_t size, const knapsack *const knap) {
+void print_items(const size_t size, const KNAPSACK *const knap) {
   size_t i;
   float value = 0;
   float weight = 0;
@@ -160,9 +157,9 @@ void print_items(const size_t size, const knapsack *const knap) {
  * @brief free memory form a population
  * @param pop the population to free from memory
  */
-void knapsack_free(population * pop) {
+void knapsack_free(POPULATION * pop) {
   free(items);
-  free(((knapsack *) pop->genes)->inside);
+  free(((KNAPSACK *) pop->genes)->inside);
   free(pop->genes);
   free(pop);
 }
