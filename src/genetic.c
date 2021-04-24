@@ -7,7 +7,7 @@
  * @param values the values to store in population genes
  * @return a pointer with the new population
  */
-POPULATION *generate_population(const size_t pop_size, void *values) {
+POPULATION *generate_population(const size_t pop_size, const size_t gen_size, void *values(const size_t)) {
   POPULATION *pop;
   size_t i;
 
@@ -17,7 +17,7 @@ POPULATION *generate_population(const size_t pop_size, void *values) {
   if (pop == NULL) return NULL;
 
   for (i = 0; i < pop_size; i++) {
-    pop[i].genes = values;
+    pop[i].genes = values(gen_size);
     pop[i].fitness = 0;
   }
   return pop;
@@ -97,7 +97,7 @@ void crossover(POPULATION *first_fittest, POPULATION *second_fittest, const size
  */
 void mutation(POPULATION *first, POPULATION *second, const size_t size, const float mutation_value,
     void (*m)(POPULATION *, POPULATION *, const int, const int)) {
-  if (random_float(2) <= mutation_value)
+  if (random_int(2) < mutation_value)
     m(first, second, rand() % size, rand() % size);
 }
 

@@ -74,7 +74,7 @@ void monkey_fun(void) {
   generation = 0;
   time = clock();
 
-  pop = generate_population(pop_size, monkey_random_genome(gen_size));
+  pop = generate_population(pop_size, gen_size, monkey_random_genome);
   fitness = calc_fitness(pop, pop_size, gen_size, calc_monkey_fitness);
 
   while (fitness != 1) {
@@ -130,12 +130,11 @@ void knapsack_fun(void) {
   print_items(gen_size, NULL);
   time = clock();
 
-  pop = generate_population(pop_size, knapsack_random_genome(gen_size));
+  pop = generate_population(pop_size, gen_size, knapsack_random_genome);
   calc_fitness(pop, pop_size, gen_size, calc_knapsack_fitness);
 
   while (generation < 100) {
     generation++;
-
     selection(pop, pop_size, &first_fittest, &second_fittest);
     crossover(&first_fittest, &second_fittest, gen_size, knapsack_crossover);
     mutation(&first_fittest, &second_fittest, gen_size, mutation_value, knapsack_mutation);
@@ -181,7 +180,7 @@ void timetable_fun(void) {
   generation = 0;
 
   // TODO: Finish timetable random genome and the others. also needs to generate the UC
-  pop = generate_population(pop_size, timetable_random_genome(gen_size));
+  pop = generate_population(pop_size, gen_size, timetable_random_genome);
   //fitness = calc_fitness(pop, pop_size, gen_size, calc_knapsack_fitness);
 
   timetable_free(pop);

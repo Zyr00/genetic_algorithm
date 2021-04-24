@@ -8,7 +8,7 @@ typedef struct {
   double fitness;
 } POPULATION;
 
-POPULATION *generate_population(const size_t, void *);
+POPULATION *generate_population(const size_t, const size_t, void *(*v)(const size_t));
 float calc_fitness(POPULATION *, const size_t, const size_t, float (*c)(const POPULATION, const size_t));
 void selection(POPULATION *, const size_t, POPULATION *, POPULATION *);
 void crossover(POPULATION *, POPULATION *, const size_t, void (*c)(POPULATION *, POPULATION *, const int));

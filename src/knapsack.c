@@ -44,6 +44,7 @@ void *knapsack_random_genome(const size_t size) {
 
   for (i = 0; i < size; i++) knap->inside[i] = random_int(2);
   knap->items = items;
+
   return knap;
 }
 
@@ -99,21 +100,8 @@ void knapsack_crossover(POPULATION *const first, POPULATION *const second, const
  * @param mutation_point_2 a random position in the array to mutate for the second fittest
  */
 void knapsack_mutation(POPULATION *const first, POPULATION *const second, const int mutation_point_1, const int mutation_point_2) {
-  KNAPSACK *first_knap = ((KNAPSACK *) first->genes);
-  KNAPSACK *second_knap = ((KNAPSACK *) second->genes);
-
-  if (first_knap->inside[mutation_point_1] == 1)
-    first_knap->inside[mutation_point_1] = 0;
-  else
-    first_knap->inside[mutation_point_1] = 1;
-
-  if (second_knap->inside[mutation_point_2] == 1)
-    second_knap->inside[mutation_point_2] = 0;
-  else
-    second_knap->inside[mutation_point_2] = 1;
-
-  first->genes = first_knap;
-  second->genes = second_knap;
+  ((KNAPSACK *) first->genes)->inside[mutation_point_1] = 1 - ((KNAPSACK *) first->genes)->inside[mutation_point_1];
+  ((KNAPSACK *) second->genes)->inside[mutation_point_2] = 1 - ((KNAPSACK *) second->genes)->inside[mutation_point_2];
 }
 
 /**
@@ -139,8 +127,9 @@ void print_items(const size_t size, const KNAPSACK *const knap) {
   float weight = 0;
 
   for (i = 0; i < size; i++) {
-    if (knap && knap->inside[i] == 1) {
-      print_item(i, &value, &weight);
+    if (knap) {
+      if( knap->inside[i] == 1)
+        print_item(i, &value, &weight);
     } else {
       print_item(i, &value, &weight);
     }
