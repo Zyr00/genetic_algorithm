@@ -4,7 +4,8 @@
 ROOM *rooms;
 TEACHER *teachers;
 CLASS *classes;
-size_t rooms_length, teachers_length, classes_length;
+UNIT *units;
+size_t rooms_length, teachers_length, classes_length, units_length;
 
 /**
  * @brief generate rooms
@@ -12,7 +13,7 @@ size_t rooms_length, teachers_length, classes_length;
  * @param min the min number of students that fit in the room
  * @param max the max number of students that fit in the room
  */
-void generate_rooms(const size_t size, const short unsigned int min, const short unsigned int max) {
+void generate_rooms(const size_t size, const unsigned int min, const unsigned int max) {
   size_t i;
 
   if (size <= 0) return;
@@ -49,7 +50,7 @@ void generate_teachers(const size_t size) {
  * @param min the min number that a class can have of students
  * @param max the max number that a calss can have of students
  */
-void generate_classes(const size_t size, const short unsigned int min, const short unsigned int max) {
+void generate_classes(const size_t size, const unsigned int min, const unsigned int max) {
   size_t i;
 
   if (size <= 0) return;
@@ -62,6 +63,24 @@ void generate_classes(const size_t size, const short unsigned int min, const sho
     classes[i].id = i + 1;
     classes[i].size_of_class = min + random_int(max);
   }
+}
+
+/**
+ * @brief generate units
+ * @param size the total number of units to generate
+ */
+void generate_units(const size_t size) {
+  size_t i;
+
+  if (size <= 0) return;
+
+  units_length = size;
+  units = malloc(sizeof(UNIT) * size);
+  if (units == NULL) return;
+
+  for (i = 0; i < size; i++)
+    units[i].id = random_int(size);
+
 }
 
 /**
@@ -79,6 +98,7 @@ void *timetable_random_genome(const size_t gen_size) {
   if (lessons == NULL) return NULL;
 
   for (i = 0; i < gen_size; i++) {
+    lessons[i].unit = units[random_int(units_length)];
     lessons[i].room = rooms[random_int(rooms_length)];
     lessons[i].teacher = teachers[random_int(rooms_length)];
     lessons[i].class_ = classes[random_int(classes_length)];
@@ -92,9 +112,10 @@ void *timetable_random_genome(const size_t gen_size) {
  * @brief free timetable from memory
  */
 void timetable_free(POPULATION *pop) {
+  free((LESSON *) pop->genes);
+  free(pop);
   free(rooms);
   free(teachers);
   free(classes);
-  free(pop->genes);
-  free(pop);
+  free(units);
 }

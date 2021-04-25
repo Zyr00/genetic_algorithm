@@ -9,7 +9,7 @@
 #define ASCI_END 127
 #define NEW_LINE_CHAR '\n'
 #define END_LINE_CHAR '\0'
-#define INVALID_INPUT "Invalid input try again."
+#define INVALID_INPUT "Invalid input try again.\n"
 
 char random_char();
 float random_float(const float);

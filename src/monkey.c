@@ -91,6 +91,6 @@ void monkey_mutation(POPULATION *const first, POPULATION *const second, const in
  * @param pop the population
  */
 void monkey_free(POPULATION *pop) {
-  free(pop->genes);
+  free(((char *) pop->genes));
   free(pop);
 }

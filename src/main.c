@@ -159,7 +159,7 @@ void knapsack_fun(void) {
  */
 void timetable_fun(void) {
   POPULATION *pop, first_fittest, second_fittest;
-  size_t pop_size, gen_size, room_size, teacher_size, class_size;
+  size_t pop_size, gen_size, room_size, teacher_size, class_size, unit_size;
   short unsigned int room_max, room_min, class_max, class_min;
   int generation;
   float fitness;
@@ -167,6 +167,7 @@ void timetable_fun(void) {
   room_size = TIMETABLE_DEFAULT_ROOM_SIZE;
   teacher_size = TIMETABLE_DEFAULT_TEACHER_SIZE;
   class_size = TIMETABLE_DEFAULT_CLASS_SIZE;
+  unit_size = TIMETABLE_DEFAULT_UNIT_SIZE;
   pop_size = TIMETABLE_DEFAULT_POP_SIZE;
   gen_size = TIMETABLE_DEFAULT_GEN_SIZE;
   room_max = TIMETABLE_ROOM_MAX_VALUE;
@@ -177,9 +178,9 @@ void timetable_fun(void) {
   generate_rooms(room_size, room_min, room_max);
   generate_teachers(teacher_size);
   generate_classes(class_size, class_min, class_max);
+  generate_units(unit_size);
   generation = 0;
 
-  // TODO: Finish timetable random genome and the others. also needs to generate the UC
   pop = generate_population(pop_size, gen_size, timetable_random_genome);
   //fitness = calc_fitness(pop, pop_size, gen_size, calc_knapsack_fitness);
 

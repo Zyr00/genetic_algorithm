@@ -18,7 +18,6 @@ typedef struct {
 } ITEM;
 
 typedef struct {
-  ITEM *items;
   short int *inside;
 } KNAPSACK;
 

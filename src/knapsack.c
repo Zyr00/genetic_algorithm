@@ -15,7 +15,7 @@ void generate_items(const size_t size) {
 
   if (size <= 0) return;
 
-  items = malloc(sizeof(ITEM) * size);
+  items = (ITEM *) malloc(sizeof(ITEM) * size);
   if (items == NULL) return;
 
   for (i = 0; i < size; i++) {
@@ -36,14 +36,13 @@ void *knapsack_random_genome(const size_t size) {
   if(items == NULL) return NULL;
   if (size <= 0) return NULL;
 
-  knap = malloc(sizeof(KNAPSACK));
+  knap = (KNAPSACK *) malloc(sizeof(KNAPSACK));
   if (knap == NULL) return NULL;
 
-  knap->inside = malloc(sizeof(short int) * size);
+  knap->inside = (short int *) malloc(sizeof(short int) * size);
   if (knap->inside == NULL) return NULL;
 
   for (i = 0; i < size; i++) knap->inside[i] = random_int(2);
-  knap->items = items;
 
   return knap;
 }
@@ -142,8 +141,8 @@ void print_items(const size_t size, const KNAPSACK *const knap) {
  * @param pop the population to free from memory
  */
 void knapsack_free(POPULATION * pop) {
-  free(items);
   free(((KNAPSACK *) pop->genes)->inside);
-  free(pop->genes);
+  free(((KNAPSACK *) pop->genes));
   free(pop);
+  free(items);
 }

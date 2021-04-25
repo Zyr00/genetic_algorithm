@@ -20,6 +20,10 @@ $(OBJDIR)/%.o: %.c
 $(EXEC): $(OBJS) $(HDRS)
 	$(CC) -o $@ $(OBJS) $(CFLAGS)
 
+valgrind:
+	valgrind --leak-check=full -s --track-origins=yes ./$(EXEC)
+
+
 clean:
 	rm -rf $(EXEC) $(OBJDIR)
 
