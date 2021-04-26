@@ -142,7 +142,7 @@ void print_items(const size_t size, const KNAPSACK *const knap) {
  */
 void knapsack_free(POPULATION * pop) {
   free(((KNAPSACK *) pop->genes)->inside);
-  free(((KNAPSACK *) pop->genes));
+  free(pop->genes);
   free(pop);
   free(items);
 }

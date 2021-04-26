@@ -142,3 +142,28 @@ void fittest_offspring(POPULATION *const pop, const size_t pop_size, POPULATION 
   }
   pop[smallest_fittnes(pop, pop_size)] = *second;
 }
+
+/**
+ * @brief sort population by fittnes
+ * @param pop the population
+ * @param size the size of the population
+ */
+void sort_population(POPULATION *pop, const size_t size) {
+  size_t i, j;
+  int changed;
+  POPULATION tmp;
+
+  i = 0;
+  do {
+    changed = 0;
+    for (j = 0; j < size - i - 1; j++) {
+      if (pop[j].fitness < pop[j + 1].fitness) {
+        tmp = pop[j];
+        pop[j] = pop[j + 1];
+        pop[j + 1] = tmp;
+        changed = 1;
+      }
+    }
+    i++;
+  } while(changed == 1);
+}

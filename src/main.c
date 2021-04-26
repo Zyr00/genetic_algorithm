@@ -183,6 +183,8 @@ void timetable_fun(void) {
 
   pop = generate_population(pop_size, gen_size, timetable_random_genome);
   //fitness = calc_fitness(pop, pop_size, gen_size, calc_knapsack_fitness);
+  //
+  for (size_t i = 0; i < pop_size; i++) {}
 
   timetable_free(pop);
 }

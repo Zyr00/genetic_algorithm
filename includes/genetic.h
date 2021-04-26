@@ -15,5 +15,6 @@ void crossover(POPULATION *, POPULATION *, const size_t, void (*c)(POPULATION *,
 void mutation(POPULATION *, POPULATION *, const size_t, const float, void (*m)(POPULATION *, POPULATION *, const int, const int));
 size_t smallest_fittnes(POPULATION *pop, const size_t size);
 void fittest_offspring(POPULATION *, const size_t, POPULATION *, POPULATION *, const size_t, float (*c)(const POPULATION, const size_t));
+void sort_population(POPULATION *, const size_t);
 
 #endif /* _GENETIC_ */
