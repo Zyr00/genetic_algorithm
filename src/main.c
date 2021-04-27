@@ -182,9 +182,15 @@ void timetable_fun(void) {
   generation = 0;
 
   pop = generate_population(pop_size, gen_size, timetable_random_genome);
-  //fitness = calc_fitness(pop, pop_size, gen_size, calc_knapsack_fitness);
-  //
-  for (size_t i = 0; i < pop_size; i++) {}
+  fitness = calc_fitness(pop, pop_size, gen_size, calc_timetable_fitness);
 
+  for (size_t i = 0; i < pop_size; i++) {
+    printf("fitness: %f", pop[i].fitness);
+    printf("(%lu) -> \n", i);
+    LESSON *l = ((LESSON *) pop[i].genes);
+    for (size_t j = 0; j < gen_size; j++) {
+      printf("C: %d -> R: %d -> H: %d\n", l[j].class_.id, l[j].room.id, l[j].hours);
+    }
+  }
   timetable_free(pop);
 }

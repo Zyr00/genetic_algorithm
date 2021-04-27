@@ -7,10 +7,10 @@
 #define TIMETABLE_DEFAULT_POP_SIZE 40
 #define TIMETABLE_DEFAULT_GEN_SIZE 25
 #define TIMETABLE_DEFAULT_MUTATION 0.015
-#define TIMETABLE_DEFAULT_ROOM_SIZE 40
-#define TIMETABLE_DEFAULT_TEACHER_SIZE 40
-#define TIMETABLE_DEFAULT_CLASS_SIZE 40
-#define TIMETABLE_DEFAULT_UNIT_SIZE 40
+#define TIMETABLE_DEFAULT_ROOM_SIZE 25
+#define TIMETABLE_DEFAULT_TEACHER_SIZE 25
+#define TIMETABLE_DEFAULT_CLASS_SIZE 25
+#define TIMETABLE_DEFAULT_UNIT_SIZE 25
 #define TIMETABLE_ROOM_MAX_VALUE 30
 #define TIMETABLE_ROOM_MIN_VALUE 10
 #define TIMETABLE_CLASS_MAX_VALUE 30
@@ -60,6 +60,7 @@ void generate_teachers(const size_t);
 void generate_classes(const size_t, const unsigned int, const unsigned int);
 void generate_units(const size_t);
 void *timetable_random_genome(const size_t);
+float calc_timetable_fitness(const POPULATION, const size_t);
 
 void timetable_free(POPULATION *pop);
 

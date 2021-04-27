@@ -79,7 +79,7 @@ void generate_units(const size_t size) {
   if (units == NULL) return;
 
   for (i = 0; i < size; i++)
-    units[i].id = random_int(size);
+    units[i].id = i + 1;
 
 }
 
@@ -106,6 +106,29 @@ void *timetable_random_genome(const size_t gen_size) {
   }
 
   return lessons;
+}
+
+/**
+ * @brief calculate the fitness of the genome of the timetable problem
+ * @param pop the population
+ * @param size the size of the genome
+ * @return the new fitness
+ */
+float calc_timetable_fitness(const POPULATION pop, const size_t size) {
+  size_t i, j;
+  LESSON *genes = (LESSON *) pop.genes;
+
+  for (i = 0; i < size; i++) {
+    if (genes[i].room.size < genes[i].class_.size_of_class) return 0;
+    for (j = 0; j < size; j++) {
+      if (j != i) {
+        if (genes[i].hours == genes[j].hours) return 0;
+        if (genes[i].class_.id == genes[j].class_.id) return 0;
+        if (genes[i].teacher.id == genes[j].teacher.id) return 0;
+      }
+    }
+  }
+  return 1;
 }
 
 /**
