@@ -1,7 +1,6 @@
 package genetic;
 
 import utils.Utils;
-
 import java.util.List;
 
 public class GeneticAlgorithm {
@@ -38,6 +37,7 @@ public class GeneticAlgorithm {
     public Population crossover(Population pop, Population elits) {
         List<IIndividual> pop_individuals = pop.getIndividuals();
         List<IIndividual> elit_individuals = elits.getIndividuals();
+
         int pop_size = pop.getIndividuals().size();
         for (int i = elitism -1; i < pop_size; i++) {
             if (Math.random() < crossover_freq)  {
@@ -52,6 +52,10 @@ public class GeneticAlgorithm {
         return new Population(elit_individuals);
     }
 
+    /**
+     * Mutate the population
+     * @param elits the population elits
+     */
     public Population mutation(Population elits) {
         List<IIndividual> elit_individuals = elits.getIndividuals();
         int size = elit_individuals.size();
