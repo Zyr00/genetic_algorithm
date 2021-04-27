@@ -28,9 +28,9 @@ To the solution there are a few considerations that you need to have in mind:
   - Hour Block <2h>;
   - Lessons composed of (Class, Curricular unit, Teacher, Hour Block, Room).
 
-## Compiling and running
+# Compiling and running Java version
 
-### Configuring build
+## Configuring build
 
 ```Makefile
 
@@ -41,25 +41,59 @@ EXEC := main.Main # The name and package of the main class
 
 ```
 
-#### Linux
+### Linux
 
 - Compile with the `make` command: `make -j$(nproc)` or just `make`
 - Run `make run` to run the program.
 
-#### Windows and Mac
+### Windows and Mac
 
 - Windows Instruction [here](https://stackoverflow.com/questions/32127524/how-to-install-and-use-make-in-windows#54086635)
 - Mac Instruction [here](https://stackoverflow.com/questions/1469994/using-make-on-os-x)
 
-## References
 
-### Article
+# Compiling and running C version
+
+## Configuring build
+
+In the make file the `CC` variable contains the compiler, this can be changed to `clang` instead of `gcc`
+
+```Makefile
+
+CC = gcc
+CFLAGS := -g -Wall -Wextra -pedantic
+
+```
+
+To change the executable name in the makefile there is a variable called `EXEC` that controls the name.
+
+```Makefile
+
+...
+EXEC := main
+...
+
+```
+
+### Linux
+
+- Compile with the `make` command: `make -j$(nproc)` or just `make`
+- Run `./main` or the name specified in the Makefile
+
+### Windows and Mac
+
+- Windows Instruction [here](https://stackoverflow.com/questions/32127524/how-to-install-and-use-make-in-windows#54086635)
+- Mac Instruction [here](https://stackoverflow.com/questions/1469994/using-make-on-os-x)
+
+# References
+
+## Article
  - [Introduction to Genetic Algorithms — Including Example Code](https://towardsdatascience.com/introduction-to-genetic-algorithms-including-example-code-e396e98d8bf3)
 
-### Youtube
+## Youtube
  - [Genetic Algorithms Explained By Example](https://www.youtube.com/watch?v=uQj5UNhCPuo)
  - [Genetic Algorithm from Scratch in Python (tutorial with code)](https://www.youtube.com/watch?v=nhT56blfRpE)
 
-### Code
+## Code
  - [Memento Gitalb](https://github.com/memento/GeneticAlgorithm)
  - [Kie Codes](https://github.com/kiecodes/genetic-algorithms)
