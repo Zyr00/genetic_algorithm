@@ -1,8 +1,8 @@
-# Genetic Programming in C
+# Genetic Programming in java
 
 ## Introduction
 
-This is an implementation of a genetic algorithm in C
+This is an implementation of a genetic algorithm in java
 
 ## Problems
 
@@ -19,7 +19,7 @@ Given a set of items, each with a weight and a value, determine the number of ea
 This problem consists in a creating a timetable with the following rules:
   - Classes can only be carried out in rooms that are free in a time frame;
   - A teacher can only teach a lesson un at a time;
-  - The rooms should be large enough to accomudate a calss.
+  - The rooms should be large enough to accommodate a class.
 To the solution there are a few considerations that you need to have in mind:
   - You need rooms;
   - Teachers;
@@ -32,29 +32,19 @@ To the solution there are a few considerations that you need to have in mind:
 
 ### Configuring build
 
-In the make file the `CC` variable contains the compiler, this can be changed to `clang` instead of `gcc`
-
 ```Makefile
 
-CC = gcc
-CFLAGS := -g -Wall -Wextra -pedantic
-
-```
-
-To change the executable name in the makefile there is a variable called `EXEC` that controls the name.
-
-```Makefile
-
-...
-EXEC := main
-...
+JC := javac
+J := java
+JCFLAGS := -d $(OUT_DIR)/ -cp $(SRC_DIR)/
+EXEC := main.Main # The name and package of the main class
 
 ```
 
 #### Linux
 
 - Compile with the `make` command: `make -j$(nproc)` or just `make`
-- Run `./main` or the name specified in the Makefile
+- Run `make run` to run the program.
 
 #### Windows and Mac
 
