@@ -5,7 +5,7 @@ import genetic.Population;
 import problems.Monkey;
 
 public class Main {
-    public static final int MAX_POP = 20;
+    public static final int MAX_POP = 100;
     public static final int ELITISM = 3;
     public static final float CROSSOVER_FREQ = 0.95f;
     public static final float CROSSOVER_UNIFORM = 0.50f;
@@ -19,21 +19,22 @@ public class Main {
         float fitness;
         int generation = 0;
 
+        long start = System.nanoTime();
+        GeneticAlgorithm ga = new GeneticAlgorithm(ELITISM, CROSSOVER_FREQ, CROSSOVER_UNIFORM, MUTATION_FREQ);
         Population pop = Population.init_populations(MAX_POP, CHOMOSOME_SIZE, new Monkey());
         fitness = Population.calc_fitness(pop);
 
-        pop.getIndividuals().forEach(i -> System.out.println(i.toString()));
-
-        GeneticAlgorithm ga = new GeneticAlgorithm(ELITISM, CROSSOVER_FREQ, CROSSOVER_UNIFORM, MUTATION_FREQ);
-        // while (fitness < 1) {
-            Population p = ga.selection(pop);
-            p = ga.crossover(pop, p);
-            p = ga.mutation(p);
-            fitness = Population.calc_fitness(p);
-            pop = p;
+        while (fitness < 1) {
+            ga.selection(pop);
+            ga.crossover(pop);
+            ga.mutation(pop);
+            fitness = Population.calc_fitness(pop);
             generation++;
-        // }
-        System.out.println(generation);
-        // pop.getIndividuals().forEach(i -> System.out.println(i.toString()));
+        }
+        double elapsedTime = (System.nanoTime() - start) / 1_000_000_000.0;
+
+        Population.sort_population(pop);
+        System.out.printf("\nIt took %f\n", elapsedTime);
+        System.out.printf("Solução encontrada:\t(%d) -> %s\n\n", generation, pop.getIndividuals().get(0).toString());
     }
 }

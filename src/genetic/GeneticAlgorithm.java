@@ -1,6 +1,5 @@
 package genetic;
 
-import utils.Utils;
 import java.util.List;
 
 public class GeneticAlgorithm {
@@ -18,49 +17,58 @@ public class GeneticAlgorithm {
      * Select the best from the population
      * @param pop the population
      * @param elitism the number to select from the population
-     * @return a new population list
      */
-    public Population selection(Population pop) {
+    public void selection(Population pop) {
         Population.sort_population(pop);
-        return Population.elitism(pop.getIndividuals(), elitism);
+        pop = Population.elitism(pop.getIndividuals(), elitism);
     }
 
     /**
      * Crossover the population
      * @param pop the population
-     * @param elist the elits from the population
      * @param elitism the number of elits
      * @param freq the frequency of the crossover
      * @param uniform the uniform value for the crossover
-     * @return a new population with the elits and the crossover results
      */
-    public Population crossover(Population pop, Population elits) {
+    public void crossover(Population pop) {
         List<IIndividual> pop_individuals = pop.getIndividuals();
-        List<IIndividual> elit_individuals = elits.getIndividuals();
-
         int pop_size = pop.getIndividuals().size();
-        for (int i = elitism -1; i < pop_size; i++) {
-            if (Math.random() < crossover_freq)  {
-                IIndividual A = pop_individuals.get(i);
-                IIndividual B = pop_individuals.get(Utils.generate_int(pop_size));
-                IIndividual C = A.crossover(A, B, crossover_uniform);
-                elit_individuals.add(C);
+        for (int i = elitism - 1; i < pop_size; i++) {
+            IIndividual parentA = pop_individuals.get(0);
+            if (Math.random() < crossover_freq) {
+                IIndividual parentB = selectParent(pop_individuals, pop_size, pop.getTotalFitness());
+                pop_individuals.set(i, parentA.crossover(parentB, crossover_uniform));
             } else {
-                elit_individuals.add(pop_individuals.get(i));
+                pop_individuals.set(i, parentA);
             }
         }
-        return new Population(elit_individuals);
+    }
+
+    /**
+     * Select parent with the wheel method
+     * @param individuals the {@link IIndividual} of the population
+     * @param size the size of the individuals
+     * @param total_fitness the total fitness of the individuals
+     * @return the {@link IIndividual}
+     */
+    public IIndividual selectParent(List<IIndividual> individuals, final int size, final double total_fitness) {
+        final double roulettWheelPosition = Math.random() * total_fitness;
+        double wheel = 0;
+        for (int i = 0; i < size; i++) {
+            wheel += individuals.get(i).getFitness();
+            if (wheel >= roulettWheelPosition) return individuals.get(i);
+        }
+        return individuals.get(size - 1);
     }
 
     /**
      * Mutate the population
-     * @param elits the population elits
+     * @param pop the population
      */
-    public Population mutation(Population elits) {
-        List<IIndividual> elit_individuals = elits.getIndividuals();
-        int size = elit_individuals.size();
+    public void mutation(Population pop) {
+        List<IIndividual> individuals = pop.getIndividuals();
+        final int size = individuals.size();
         for (int i = 0; i < size; i++)
-            elit_individuals.get(i).mutate(mutation_freq);
-        return new Population(elit_individuals);
+            individuals.get(i).mutate(mutation_freq);
     }
 }

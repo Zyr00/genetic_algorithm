@@ -20,6 +20,14 @@ public class Population {
     }
 
     /**
+     * Total fitness of the population
+     * @return the total fitness
+     */
+    public double getTotalFitness() {
+        return individuals.stream().mapToDouble((a) -> a.getFitness()).sum();
+    }
+
+    /**
      * Generate a population of {@link IIndividual}
      * @param p_size the size of the population
      * @param chromosome_size the size of the chromosome
@@ -68,10 +76,8 @@ public class Population {
      */
     public static void sort_population(Population pop) {
         pop.getIndividuals().sort((i1, i2) -> {
-            if (i1.fitness() < i2.fitness())
-                return 1;
-            if (i1.fitness() > i2.fitness())
-                return -1;
+            if (i1.fitness() < i2.fitness()) return 1;
+            if (i1.fitness() > i2.fitness()) return -1;
             return 0;
         });
     }

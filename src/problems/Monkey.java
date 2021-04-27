@@ -2,6 +2,7 @@ package problems;
 
 import genetic.IIndividual;
 import utils.Utils;
+import java.util.Arrays;
 
 public class Monkey implements IIndividual {
     public static char[] solution;
@@ -10,14 +11,18 @@ public class Monkey implements IIndividual {
 
     public Monkey() {
         this.chromosomes = null;
-        this.fitness = 0;
+        this.fitness = -1;
     }
 
     public Monkey(char[] chromosomes) {
         this.chromosomes = chromosomes;
-        this.fitness = 0;
+        this.fitness = -1;
     }
 
+    /**
+     * Getter for chromosomes
+     * @return the chromosomes array
+     */
     public char[] getChromosomes() { return this.chromosomes; }
 
     @Override
@@ -43,36 +48,30 @@ public class Monkey implements IIndividual {
     }
 
     @Override
-    public IIndividual crossover(final IIndividual A, final IIndividual B, final float uniform) {
-        Monkey ma = (Monkey) A;
-        Monkey mb = (Monkey) B;
-        char[] newchromosomes = new char[mb.getChromosomes().length];
+    public IIndividual crossover(final IIndividual B, final float uniform) {
+        Monkey m = (Monkey) B;
+        char[] c = new char[m.getChromosomes().length];
         for (int i = 0; i < this.chromosomes.length; i++) {
-            if (Math.random() < uniform)
-                newchromosomes[i] = ma.getChromosomes()[i];
-            else
-                newchromosomes[i] = mb.getChromosomes()[i];
+            if (Math.random() < uniform) {
+                c[i] = this.chromosomes[i];
+            } else {
+                c[i] = m.getChromosomes()[i];
+            }
         }
-        return new Monkey(newchromosomes);
+        return new Monkey(c);
     }
 
     @Override
     public IIndividual mutate(final float mutaion_freq) {
         for (int i = 0; i < chromosomes.length; i++) {
-            if (Math.random() < mutaion_freq) {
+            if (Math.random() < mutaion_freq)
                 this.chromosomes[i] = Utils.generate_char();
-            }
         }
         return new Monkey(this.chromosomes);
     }
 
     @Override
     public String toString() {
-        StringBuilder b = new StringBuilder();
-        for (int i = 0; i < chromosomes.length; i++) {
-            b.append(chromosomes[i]);
-        }
-        b.append("\t").append(fitness);
-        return b.toString();
+        return Arrays.toString(chromosomes);
     }
 }
