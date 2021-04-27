@@ -4,8 +4,6 @@ import genetic.GeneticAlgorithm;
 import genetic.Population;
 import problems.Monkey;
 
-import java.util.List;
-
 public class Main {
     public static final int MAX_POP = 20;
     public static final int ELITISM = 3;
@@ -24,22 +22,18 @@ public class Main {
         Population pop = Population.init_populations(MAX_POP, CHOMOSOME_SIZE, new Monkey());
         fitness = Population.calc_fitness(pop);
 
-        System.out.println("###############################################");
-        System.out.println("##############   BEFORE  CROSSOVER #############");
-        System.out.println("###############################################");
         pop.getIndividuals().forEach(i -> System.out.println(i.toString()));
 
-        while (fitness < 1) {
-            Population p = GeneticAlgorithm.selection(pop, ELITISM);
-            p = GeneticAlgorithm.crossover(pop, p, ELITISM, CROSSOVER_FREQ, CROSSOVER_UNIFORM);
-            fitness = Population.calc_fitness(p);
-            p = GeneticAlgorithm.mutation(p, MUTATION_FREQ);
+        GeneticAlgorithm ga = new GeneticAlgorithm(ELITISM, CROSSOVER_FREQ, CROSSOVER_UNIFORM, MUTATION_FREQ);
+        // while (fitness < 1) {
+            Population p = ga.selection(pop);
+            p = ga.crossover(pop, p);
+            p = ga.mutation(p);
             fitness = Population.calc_fitness(p);
             pop = p;
             generation++;
-            System.out.println(generation);
-        }
-
+        // }
+        System.out.println(generation);
         // pop.getIndividuals().forEach(i -> System.out.println(i.toString()));
     }
 }
